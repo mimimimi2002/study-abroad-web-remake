@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang = "ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Document</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+    </head>
+
+    <style>
+        .container{
+            width:600px;
+            height:auto;
+            position: relative;
+        }
+        .container img{
+            width:100%;
+            height:auto;
+        }
+        p{
+            position: relative;
+            top:10%;
+            left:50%;
+            transform: translate(-50%,-50%);
+            padding:0;
+            margin:0;
+            font-size:30px;
+            color: black;
+        }
+    </style>
+
+    <body>
+      <h1 style="text-align: center">
+        語学レベル
+      </h1>
+      <!--
+      <button>
+        <a href="homepage.html">一つ前のページに戻る</a>
+      </button> 
+
+      <button>
+        <a href="homepage.html">最初のページに戻る</a>
+      </button> 
+      -->
+            <div class="row row-cols-1 row-cols-md-3 mb-3 text-center justify-content-center pl-md-4">
+                    <div class="col-4">
+                    <div class="card mb-4 rounded-3 shadow-sm" class = "justify-content-center">
+                        <div class="card-body">
+                            <a href="period.html"  class="w-100 btn btn-lg btn-primary" type="button" >A1</a>
+                        </div>
+                    </div>
+                    </div>
+
+                <div class="col-4">
+                  <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-body">
+                      <a href="period.html"  class="w-100 btn btn-lg btn-primary" type="button" style="background-color: #e16112; border-color: #e16112; color: #ffffff;">A2</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-body">
+
+                      <a href="period.html"  class="w-100 btn btn-lg btn-primary" type="button" style="background-color: #2e9f259d; border-color: #2e9f259d; color: #ffffff;">B1</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                    <div class="card mb-4 rounded-3 shadow-sm">
+                      <div class="card-body">
+                        <a href="period.html"  class="w-100 btn btn-lg btn-primary" type="button" style="background-color: #f2d65cde; border-color: #f2d65cde; color: #ffffff;">B2</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="card mb-4 rounded-3 shadow-sm">
+                      <div class="card-body">
+                        <a href="period.html"  class="w-100 btn btn-lg btn-primary" type="button" style="background-color: #1b1b1aa0; border-color: #1b1b1aa0; color: #ffffff;">C1</a>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+        <script src="js/bootstrap.bundle.min.js"></script>
+
+        <script>
+          const urlParams = new URLSearchParams(window.location.search);
+          const myParam = urlParams.get('param');
+
+          if(myParam == null){
+            alert("最初からやり直してください");
+            window.location.href = "homepage.html";
+          }
+          else if(myParam == "H2"){
+            const links = document.querySelectorAll('.w-100.btn.btn-lg.btn-primary');
+            links.forEach((link,index) => {
+                const href = link.getAttribute('href');
+                link.setAttribute('href', href + "?param="+myParam + "L" + (index+1));
+            });
+          }
+
+          else{
+            alert("最初からやり直してください");
+            window.location.href = "homepage.html";
+          }
+        </script>
+
+    </body>
+</html>
