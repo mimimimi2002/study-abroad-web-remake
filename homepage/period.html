@@ -6,13 +6,13 @@
         <title>Document</title>
         <link rel="stylesheet" href="css/bootstrap.min.css">
     </head>
-
-    <style>
-
-    </style>
-
+    <script src="js/button.js"></script>
+    <script defer>
+      document.addEventListener("DOMContentLoaded", () => {
+        get_period_buttons();
+      });
+    </script>
     <body>
-        <!-- タイトル -->
         <h1 style="text-align: center">
             <div>期間</div>
         </h1>
@@ -23,61 +23,8 @@
           <a href="homepage.html">最初のページに戻る</a>
         </button>
         -->
-
-
-
         <div id = "create-button"></div>
         <script src="js/bootstrap.bundle.min.js"></script>
-        <script>
-            const urlParams = new URLSearchParams(window.location.search);
-            const myParam = urlParams.get('param');
-
-
-            const preParam = myParam[myParam.length-2];
-            var backID = document.getElementById("back-button");
-            var backAElement = document.createElement("a");
-            if(preParam == 'L'){
-              backAElement.href = "language.html"+ "?param=" +myParam.substring(0,myParam.length-2);
-              backAElement.textContent = "一個前のページに戻る"
-            }
-
-            else if(preParam == 'S'){
-              backAElement.href = "season.html"+ "?param=" +myParam.substring(0,myParam.length-2);
-              backAElement.textContent = "一個前のページに戻る"
-            }
-
-            else if(preParam == 'e'){
-              backAElement.href = "style.html"+ "?param=" +myParam.substring(0,myParam.length-6);
-              backAElement.textContent = "一個前のページに戻る"
-            }
-
-            else if(myParam[myParam.length-2] == "P" && myParam[myParam.length-3] == "P" ){
-              backAElement.href = "purpose.html"+ "?param=" +myParam.substring(0,myParam.length-3);
-              backAElement.textContent = "一個前のページに戻る"
-            }
-
-            else if(preParam == 'H'){
-              backAElement.href = "homepage.html"+ "?param=" +myParam.substring(0,myParam.length-2);
-              backAElement.textContent = "一個前のページに戻る"
-            }
-
-            else if(myParam[myParam.length-3] == "P" && myParam[myParam.length-4] == "P"){
-              backAElement.href = "purpose.html"+ "?param=" +myParam.substring(0,myParam.length-4);
-              backAElement.textContent = "一個前のページに戻る"
-            }
-
-            else {
-              alert("最初からやり直してください");
-              window.location.href = "homepage.html";
-            }
-
-            backID.appendChild(backAElement);
-
-            if(myParam == null){
-              alert("最初からやり直してください");
-              window.location.href = "homepage.html";
-            }
-        </script>
         <script src="js/button.js"></script>
     </body>
 </html>

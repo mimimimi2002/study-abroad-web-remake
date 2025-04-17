@@ -4,20 +4,13 @@ import json
 judge_df = pd.read_excel("updated_judge.xlsx",sheet_name=0,header=None)
 program_df = pd.read_excel("updated_judge.xlsx",sheet_name=6)
 
-judge_data = {}
+def read_option(row, end):
+    option_df = judge_df.iloc[row+1, 1:end]
+    connected = '/'.join(option_df.iloc[:end].astype(str).values.flatten())
+    return connected
 
-for i in range(judge_df.shape[0] - 1):
-    programs_list = judge_df.iloc[i+1, 2:].dropna()
-    query = f"H1P{i+1}"
-
-    # Initialize a list to store each program's data
-    programs = []
-
-    for j in range(len(programs_list)):
-        program_name = str(judge_df.iloc[i+1, 2:].dropna()[j+2])
-
-        # Create a dictionary for each program
-        program_data = {
+def get_program_data(program_name):
+    program_data = {
             "name": program_name,
             "url": str(program_df[program_name][0]),
             "outline": " ".join(program_df[program_name][3].split()),
@@ -28,10 +21,32 @@ for i in range(judge_df.shape[0] - 1):
             "contact": " ".join(str(program_df[program_name][8]).split()),
             "ID": str(program_df[program_name][1])
         }
+    return program_data
+
+judge_data = {}
+option_data = {}
+
+for i in range(judge_df.shape[0] - 1):
+    programs_list = judge_df.iloc[i+1, 2:].dropna()
+    query = f"H1P{i+1}"
+
+    # Initialize a list to store each program's data
+    programs = []
+    option = ""
+
+    for j in range(len(programs_list)):
+        program_name = str(judge_df.iloc[i+1, 2:].dropna()[j+2])
+
+        # Create a dictionary for each program
+        program_data = get_program_data(program_name)
+        option = read_option(i, 2)
 
         programs.append(program_data)
 
     judge_data[query] = programs
+
+    if option:
+        option_data[query] = option
 
 judge_df = pd.read_excel("updated_judge.xlsx",sheet_name=1,header=None)
 
@@ -48,25 +63,19 @@ for i in range(judge_df.shape[0] - 1):
 
     query = f"H2{language[k % 5]}{period[p % 4]}"
     program_entries = []
+    option = ""
 
     for j in range(len(programs_list)):
         program_name = str(judge_df.iloc[i + 1, 3:].dropna()[j + 3])
 
-        program_data = {
-            "name": program_name,
-            "url": str(program_df[program_name][0]),
-            "outline": " ".join(program_df[program_name][3].split()),
-            "period": " ".join(program_df[program_name][4].split()),
-            "schedule": " ".join(str(program_df[program_name][5]).split()),
-            "cost": " ".join(str(program_df[program_name][6]).split()),
-            "application_grade": " ".join(str(program_df[program_name][7]).split()),
-            "contact": " ".join(str(program_df[program_name][8]).split()),
-            "ID": str(program_df[program_name][1])
-        }
+        program_data = get_program_data(program_name)
+        option = read_option(i, 3)
 
         program_entries.append(program_data)
 
     judge_data[query] = program_entries
+    if option:
+        option_data[query] = option
 
 judge_df = pd.read_excel("updated_judge.xlsx",sheet_name=2,header=None)
 season = ['S1','S2']
@@ -82,29 +91,23 @@ for i in range(judge_df.shape[0] - 1):
 
     query = f"H3{season[(k)%2]}{period[p%4]}"
     program_entries = []
+    option = ""
 
     for j in range(len(programs_list)):
         program_name = str(judge_df.iloc[i + 1, 3:].dropna()[j + 3])
 
-        program_data = {
-            "name": program_name,
-            "url": str(program_df[program_name][0]),
-            "outline": " ".join(program_df[program_name][3].split()),
-            "period": " ".join(program_df[program_name][4].split()),
-            "schedule": " ".join(str(program_df[program_name][5]).split()),
-            "cost": " ".join(str(program_df[program_name][6]).split()),
-            "application_grade": " ".join(str(program_df[program_name][7]).split()),
-            "contact": " ".join(str(program_df[program_name][8]).split()),
-            "ID": str(program_df[program_name][1])
-        }
+        program_data = get_program_data(program_name)
+        option = read_option(i, 3)
 
         program_entries.append(program_data)
 
     judge_data[query] = program_entries
+    if option:
+        option_data[query] = option
 
 
 judge_df = pd.read_excel("updated_judge.xlsx",sheet_name=3,header=None)
-purpose = ['PP1','PP2','PP3','PP4','PP5','PP6','PP7','PP8','PP9','PP10','PP11','PP12']
+purpose = ['PP1','PP2','PP3','PP4','PP5','PP6','PP7','PP8','PP9','PP10','PP11','PP12', 'PP13', 'PP14', 'PP15', 'PP16']
 period = ['P1','P2','P3','P4']
 k = -1
 p = -1
@@ -115,27 +118,21 @@ for i in range(judge_df.shape[0]-1):
         k+=1
         p = 0
 
-    query = f"H4{purpose[(k)%12]}{period[p%4]}"
+    query = f"H4{purpose[(k)%16]}{period[p%4]}"
     program_entries = []
+    option = ""
 
     for j in range(len(programs_list)):
         program_name = str(judge_df.iloc[i + 1, 3:].dropna()[j + 3])
 
-        program_data = {
-            "name": program_name,
-            "url": str(program_df[program_name][0]),
-            "outline": " ".join(program_df[program_name][3].split()),
-            "period": " ".join(program_df[program_name][4].split()),
-            "schedule": " ".join(str(program_df[program_name][5]).split()),
-            "cost": " ".join(str(program_df[program_name][6]).split()),
-            "application_grade": " ".join(str(program_df[program_name][7]).split()),
-            "contact": " ".join(str(program_df[program_name][8]).split()),
-            "ID": str(program_df[program_name][1])
-        }
+        program_data = get_program_data(program_name)
+        option = read_option(i, 3)
 
         program_entries.append(program_data)
 
     judge_data[query] = program_entries
+    if option:
+        option_data[query] = option
 
 
 
@@ -153,25 +150,19 @@ for i in range(judge_df.shape[0]-1):
 
     query = f"H5{style[(k)%7]}{period[p%4]}"
     program_entries = []
+    option = ""
 
     for j in range(len(programs_list)):
         program_name = str(judge_df.iloc[i + 1, 3:].dropna()[j + 3])
 
-        program_data = {
-            "name": program_name,
-            "url": str(program_df[program_name][0]),
-            "outline": " ".join(program_df[program_name][3].split()),
-            "period": " ".join(program_df[program_name][4].split()),
-            "schedule": " ".join(str(program_df[program_name][5]).split()),
-            "cost": " ".join(str(program_df[program_name][6]).split()),
-            "application_grade": " ".join(str(program_df[program_name][7]).split()),
-            "contact": " ".join(str(program_df[program_name][8]).split()),
-            "ID": str(program_df[program_name][1])
-        }
+        program_data = get_program_data(program_name)
+        option = read_option(i, 3)
 
         program_entries.append(program_data)
 
     judge_data[query] = program_entries
+    if option:
+        option_data[query] = option
 
 
 judge_df = pd.read_excel("updated_judge.xlsx",sheet_name=4,header=None)
@@ -188,55 +179,46 @@ for i in range(judge_df.shape[0]-1):
 
     query = f"H5{style[(k)%7]}{period[p%4]}"
     program_entries = []
+    option = ""
 
     for j in range(len(programs_list)):
         program_name = str(judge_df.iloc[i + 1, 3:].dropna()[j + 3])
 
-        program_data = {
-            "name": program_name,
-            "url": str(program_df[program_name][0]),
-            "outline": " ".join(program_df[program_name][3].split()),
-            "period": " ".join(program_df[program_name][4].split()),
-            "schedule": " ".join(str(program_df[program_name][5]).split()),
-            "cost": " ".join(str(program_df[program_name][6]).split()),
-            "application_grade": " ".join(str(program_df[program_name][7]).split()),
-            "contact": " ".join(str(program_df[program_name][8]).split()),
-            "ID": str(program_df[program_name][1])
-        }
+        program_data = get_program_data(program_name)
+        option = read_option(i, 3)
 
         program_entries.append(program_data)
 
     judge_data[query] = program_entries
+    if option:
+        option_data[query] = option
 
 judge_df = pd.read_excel("updated_judge.xlsx",sheet_name=5,header=None)
 
 for i in range(judge_df.shape[0] - 1):
-    programs_list = judge_df.iloc[i+1, 1:].dropna()
+    programs_list = judge_df.iloc[i+1, 2:].dropna()
     query = f"H6P{i+1}"
 
     # Initialize a list to store each program's data
     programs = []
+    option = ""
 
     for j in range(len(programs_list)):
-        program_name = str(judge_df.iloc[i+1, 1:].dropna()[j+1])
+        program_name = str(judge_df.iloc[i+1, 2:].dropna()[j+2])
 
         # Create a dictionary for each program
-        program_data = {
-            "name": program_name,
-            "url": str(program_df[program_name][0]),
-            "outline": " ".join(program_df[program_name][3].split()),
-            "period": " ".join(program_df[program_name][4].split()),
-            "schedule": " ".join(str(program_df[program_name][5]).split()),
-            "cost": " ".join(str(program_df[program_name][6]).split()),
-            "application_grade": " ".join(str(program_df[program_name][7]).split()),
-            "contact": " ".join(str(program_df[program_name][8]).split()),
-            "ID": str(program_df[program_name][1])
-        }
+        program_data = get_program_data(program_name)
+        option = read_option(i, 2)
 
         programs.append(program_data)
 
     judge_data[query] = programs
+    if option:
+        option_data[query] = option
 
 # Optional: Save to JSON file with pretty formatting
 with open("judge_data.json", "w", encoding="utf-8") as f:
     json.dump(judge_data, f, ensure_ascii=False, indent=4)
+
+with open("option_data.json", "w", encoding="utf-8") as f:
+    json.dump(option_data, f, ensure_ascii=False, indent=4)
