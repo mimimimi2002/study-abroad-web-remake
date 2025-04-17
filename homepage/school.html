@@ -5,163 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GRAYCODE JavaScript</title>
   <link rel="stylesheet" href="css/bootstrap.min.css">
-  
-  <style>
-    .message-div {
-        font-size: 20px; /* テキストの大きさを設定 */
-        text-align: center; /* テキストの水平位置を中央に設定 */
-        margin-top: 10px; /* テキストの上部の余白を設定 */
-        font-weight: bold;
-        
-      }
-      .card-body {
-        background-color: lightblue;
-        display: flex; /* 子要素を横方向に配置する */
-        justify-content: center; /* 子要素を水平方向に中央に配置する */
-        align-items: center; /* 子要素を垂直方向に中央に配置する */
-    }
-    
-    .word-container {
-        width: 100%;
-        margin: 0 auto; /* 水平方向中央に配置 */
-        padding: 20px;
-        word-wrap: break-word; 
-        white-space: pre-wrap;
-        height : auto;
-        
-        
-    }
-    .word-container-program {
-        width: 100%;
-        margin: 0 auto; /* 水平方向中央に配置 */
-        padding: 20px;
-        word-wrap: break-word; 
-        white-space: pre-wrap;
-        height : 600px;
-    }
-
-    .word-container-grade{
-        width: 100%;
-        margin: 0 auto; /* 水平方向中央に配置 */
-        padding: 20px;
-        word-wrap: break-word; 
-        white-space: pre-wrap;
-        height : 200px;
-    }
-    .resizeimage img { width: 100%; }
-    .dots-container {
-        display: flex;
-        justify-content: center;
-        margin-top: 10px;
-    }
-    
-    .dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background-color: rgba(0, 0, 0, 0.5);
-        margin: 0 5px;
-        cursor: pointer;
-    }
-    
-    .dot.active {
-        background-color: rgba(0, 0, 0, 0.9);
-    }
-    .hscroll {
-        width: 100%;
-        max-height:400px;
-        justify-content: center;
-        align-items: center;
-        position: absolute;
-        top: 25%;
-        left: 50%;
-        transform: translate(-50%, -30%);
-        border:1px solid lightgray;
-        
-    }
-    .hscroll ul {
-        padding:0;
-        margin:0;
-        width:100%;
-        top: 0px;
-        overflow:hidden;
-        white-space:nowrap;
-        scroll-snap-type:x mandatory;
-        scroll-behavior:smooth;
-
-       
-    }
-    .hscroll img {
-        max-width: auto;
-        max-height:250px;
-        top: 0px;
-        
-        object-fit:contain;
-    }
-    .hscroll li {
-        list-style:none;
-        display:inline-block;
-        scroll-snap-align:center;
-        width: 100%;
-        
-        
-
-    }
-    .arrow {
-        top:0;
-        position:absolute;
-        width:8%;
-        height:100%;
-        background:rgba(255,255,255,0.3);
-        cursor:pointer;
-    }
-    .arrow:before {
-        content:'';
-        position:absolute;
-        width:10px;
-        height:10px;
-        border-left:4px solid gray;
-        border-bottom:4px solid gray;
-    }
-    .left {
-        left:0px;
-    }
-    .left:before {
-        top:calc(50% - 10px);
-        left:calc(50% - 4px);
-        transform:rotate(45deg);
-    }
-    .right {
-        right:0;
-    }
-    .right:before {
-        top:calc(50% - 10px);
-        right:calc(50% - 6px);
-        transform:rotate(-135deg);
-    }
-    
-    @media screen  {
-        .hscroll ul {
-            overflow-x: auto;
-        }
-        
-    }
-
-    
-    
-    
-    
-    </style>
-    
+  <link rel="stylesheet" href="css/school.css">
 </head>
 <body>  
   <script src = "js/schooljudge.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script>
-    
     const ul = document.querySelector('.hscroll ul');
-
-    
     const dotsContainer = document.querySelector('.dots-container');
     const school = document.getElementById("schoolinfo");
     // Create dots for each image
@@ -171,7 +21,6 @@
         dot.setAttribute('data-index', i);
         dotsContainer.appendChild(dot);
     }
-    
     // Event listener for dot clicks
     dotsContainer.addEventListener('click', (e) => {
         if (e.target.classList.contains('dot')) {
@@ -179,7 +28,6 @@
             ul.scrollLeft = school.children[index].offsetLeft;
         }
     });
-    
     // Update active dot based on scroll position
     ul.addEventListener('scroll', () => {
         const scrollPosition = ul.scrollLeft;
@@ -204,7 +52,6 @@
             ul.scrollLeft += ul.clientWidth;
         };
     });
-    
 
     // Update active dot based on scroll position
     ul.addEventListener('scroll', () => {
@@ -217,89 +64,86 @@
               break;
           }
       }
-  });
-  document.querySelectorAll('.left').forEach(elm => {
-      elm.onclick = function () {
-          let ul = elm.parentNode.querySelector('ul');
-          ul.scrollLeft -= ul.clientWidth;
-      };
-  });
-  document.querySelectorAll('.right').forEach(elm => {
-      elm.onclick = function () {
-          let ul = elm.parentNode.querySelector('ul');
-          ul.scrollLeft += ul.clientWidth;
-      };
-  });
+    });
+    document.querySelectorAll('.left').forEach(elm => {
+        elm.onclick = function () {
+            let ul = elm.parentNode.querySelector('ul');
+            ul.scrollLeft -= ul.clientWidth;
+        };
+    });
+    document.querySelectorAll('.right').forEach(elm => {
+        elm.onclick = function () {
+            let ul = elm.parentNode.querySelector('ul');
+            ul.scrollLeft += ul.clientWidth;
+        };
+    });
 
-  function getCurrentPageNumber() {
-    const scrollPosition = ul.scrollLeft;
-    const itemWidth = ul.children[0].offsetWidth; // Assuming all items have the same width
-    const currentPage = Math.floor(scrollPosition / itemWidth) + 1; // Adding 1 to make it 1-indexed
-    return currentPage;
-}
-function navigateToPage(pageNumber) {
-    const itemWidth = ul.children[0].offsetWidth; // Assuming all items have the same width
-    const targetScrollPosition = (pageNumber - 1) * itemWidth; // Calculate target scroll position
-    
-    // Set the scroll position directly without scrolling
-    ul.scrollLeft = targetScrollPosition;
+    function getCurrentPageNumber() {
+        const scrollPosition = ul.scrollLeft;
+        const itemWidth = ul.children[0].offsetWidth; // Assuming all items have the same width
+        const currentPage = Math.floor(scrollPosition / itemWidth) + 1; // Adding 1 to make it 1-indexed
+        return currentPage;
+    }
+    function navigateToPage(pageNumber) {
+        const itemWidth = ul.children[0].offsetWidth; // Assuming all items have the same width
+        const targetScrollPosition = (pageNumber - 1) * itemWidth; // Calculate target scroll position
+        // Set the scroll position directly without scrolling
+        ul.scrollLeft = targetScrollPosition;
 
-    // Update active dot based on the target page number
-    document.querySelectorAll('.dot').forEach(dot => dot.classList.remove('active'));
-    dotsContainer.children[pageNumber - 1].classList.add('active');
-}
-
-
-
-
-var positionX;                  /* スクロール位置のX座標 */
-var positionY;                  /* スクロール位置のY座標 */
-var pageNumber;                 /* スライドのページ番号 */
-var STORAGE_KEY_X = "scrollX"; /* X座標のローカルストレージキー */
-var STORAGE_KEY_Y = "scrollY"; /* Y座標のローカルストレージキー */
-var STORAGE_KEY_PAGE = "pageNumber"; /* スライドのページ番号のローカルストレージキー */
-
-/*
- * checkOffset関数: 現在のスクロール量とページ番号をチェックしてストレージに保存
- */
-function checkOffset(){
-    positionX = window.pageXOffset;
-    positionY = window.pageYOffset;
-    pageNumber = getCurrentPageNumber(); // Assume you have a function to get the current page number
-    localStorage.setItem(STORAGE_KEY_X, 0);
-    localStorage.setItem(STORAGE_KEY_Y, 0);
-    localStorage.setItem(STORAGE_KEY_PAGE, pageNumber);
-}
-
-/*
- * 起動時の処理
- *
- *		ローカルストレージをチェックして前回のスクロール位置とページ番号に戻す
- */
- 
-window.addEventListener("load", function(){
-    // ストレージチェック
-    positionX = localStorage.getItem(STORAGE_KEY_X);
-    positionY = localStorage.getItem(STORAGE_KEY_Y);
-    pageNumber = localStorage.getItem(STORAGE_KEY_PAGE);
-
-
-    // 前回の保存データがあればスクロールする
-    if(positionX !== null && positionY !== null && pageNumber !== null){
-        scrollTo(positionX, positionY);
-        // Assume you have a function to navigate to the saved page number
-        if(pageNumber != "1"){
-            navigateToPage("1");
-        }
-        
+        // Update active dot based on the target page number
+        document.querySelectorAll('.dot').forEach(dot => dot.classList.remove('active'));
+        dotsContainer.children[pageNumber - 1].classList.add('active');
     }
 
-    // スクロール時のイベント設定
-    window.addEventListener("scroll", checkOffset, false);
-});
+
+
+
+    var positionX;                  /* スクロール位置のX座標 */
+    var positionY;                  /* スクロール位置のY座標 */
+    var pageNumber;                 /* スライドのページ番号 */
+    var STORAGE_KEY_X = "scrollX"; /* X座標のローカルストレージキー */
+    var STORAGE_KEY_Y = "scrollY"; /* Y座標のローカルストレージキー */
+    var STORAGE_KEY_PAGE = "pageNumber"; /* スライドのページ番号のローカルストレージキー */
+
+    /*
+    * checkOffset関数: 現在のスクロール量とページ番号をチェックしてストレージに保存
+    */
+    function checkOffset(){
+        positionX = window.pageXOffset;
+        positionY = window.pageYOffset;
+        pageNumber = getCurrentPageNumber(); // Assume you have a function to get the current page number
+        localStorage.setItem(STORAGE_KEY_X, 0);
+        localStorage.setItem(STORAGE_KEY_Y, 0);
+        localStorage.setItem(STORAGE_KEY_PAGE, pageNumber);
+    }
+
+    /*
+    * 起動時の処理
+    *
+    *		ローカルストレージをチェックして前回のスクロール位置とページ番号に戻す
+    */
+    
+    window.addEventListener("load", function(){
+        // ストレージチェック
+        positionX = localStorage.getItem(STORAGE_KEY_X);
+        positionY = localStorage.getItem(STORAGE_KEY_Y);
+        pageNumber = localStorage.getItem(STORAGE_KEY_PAGE);
+
+
+        // 前回の保存データがあればスクロールする
+        if(positionX !== null && positionY !== null && pageNumber !== null){
+            scrollTo(positionX, positionY);
+            // Assume you have a function to navigate to the saved page number
+            if(pageNumber != "1"){
+                navigateToPage("1");
+            }
+        }
+
+        // スクロール時のイベント設定
+        window.addEventListener("scroll", checkOffset, false);
+    });
 
 
     </script>
-    
 </body>
 </html>

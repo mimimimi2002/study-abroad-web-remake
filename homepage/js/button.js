@@ -1,5 +1,17 @@
 const urlParams = new URLSearchParams(window.location.search);
 const myParam = urlParams.get('param');
+const background_colors = ["#0000FF","#e16112", "#2e9f259d", "#f2d65cde", "1b1b1aa0"]
+const period_param = ["P1", "P2", "P3", "P4"]
+const language_param = ["L1", "L2", "L3", "L4", "L5"]
+
+const purpose_param = Array.from({ length: 16 }, (_, i) => `PP${i + 1}`)
+const season_param = [
+  "S1", "S2"
+];
+
+const style_param = Array.from({ length: 7 }, (_, i) => `Style${i + 1}`)
+
+const event_param = Array.from({ length: 4 }, (_, i) => `E${i + 1}`)
 
 if(myParam == null){
   alert("最初からやり直してください");
@@ -71,24 +83,27 @@ const obj = {
   "H5Style7P1": "国際交流・異文化体験/1週間",
   "H5Style7P2": "国際交流・異文化体験/2週間",
   "H5Style7P3": "国際交流・異文化体験/1－2か月",
-  "H6P1": "留学経験者との留学相談",
-  "H6P2": "留学生との交流",
-  "H6P3": "留学と就活",
-  "H6P4": "語学力強化"
+  "H6E1": "留学経験者との留学相談",
+  "H6E2": "留学生との交流",
+  "H6E3": "留学と就活",
+  "H6E4": "語学力強化"
 }
 
-function get_period_buttons() {
+function get_period_event_buttons(option_name) {
   var createButton = document.getElementById("create-button");
 
   var rowDiv = document.createElement("div");
   rowDiv.className = "row row-cols-1 row-cols-md-3 mb-3 text-center justify-content-center pl-md-4";
 
-  period_param = ["P1", "P2", "P3", "P4"]
-  background_colors = ["#0000FF","e16112", "#2e9f259d", "#f2d65cde"]
+  let option_param = ""
+  if (option_name === "period") {
+    option_param = period_param
+  } else if (option_name === "event") {
+    option_param = event_param
+  }
 
-  console.log(period_param.length)
-  for (let i = 0; i < period_param.length; i++) {
-    new_param = myParam + period_param[i];
+  for (let i = 0; i < option_param.length; i++) {
+    new_param = myParam + option_param[i];
     if(obj[new_param]){
       var div = document.createElement("div");
       div.className = "col-4";
@@ -109,8 +124,60 @@ function get_period_buttons() {
       } else {
         link.innerText = obj[new_param].split("/")[0]
       }
-      link.style.backgroundColor = background_colors[i];
-      link.style.borderColor = background_colors[i];
+      link.style.backgroundColor = background_colors[i % background_colors.length];
+      link.style.borderColor = background_colors[i % background_colors.length];
+      link.style.color = "#ffffff";
+
+      cardBody.appendChild(link);
+
+      card.appendChild(cardBody);
+
+      div.appendChild(card);
+
+      rowDiv.appendChild(div);
+    }
+    createButton.appendChild(rowDiv);
+  }
+}
+
+function get_option_buttons(option_name) {
+  var createButton = document.getElementById("create-button");
+
+  var rowDiv = document.createElement("div");
+  rowDiv.className = "row row-cols-1 row-cols-md-3 mb-3 text-center justify-content-center pl-md-4";
+
+  let option_param = ""
+  if (option_name === "language") {
+    option_param = language_param
+  } else if (option_name === "purpose") {
+    option_param = purpose_param
+  } else if (option_name === "season") {
+    option_param = season_param
+  } else if (option_name === "style") {
+    option_param = style_param
+  }
+  for (let i = 0; i < option_param.length; i++) {
+    new_param = myParam + option_param[i];
+    console.log(new_param)
+    if (Object.keys(obj).some(key => key.includes(new_param))) {
+      var div = document.createElement("div");
+      div.className = "col-4";
+
+      var card = document.createElement("div");
+      card.className = "card mb-4 rounded-3 shadow-sm h-100";
+      card.style.maxHeight = "auto";
+
+      var cardBody = document.createElement("div");
+      cardBody.className = "card-body text-center d-flex flex-column justify-content-center";
+
+      var link = document.createElement("a");
+      link.href = "period.html?param=" + new_param;
+      link.className = "w-100 text-center d-flex flex-column justify-content-center btn btn-lg btn-primary h-100";
+      link.type = "button";
+      const option = Object.entries(obj).find(([key]) => key.includes(new_param))?.[1];
+      link.innerText = option.split("/")[0]
+      link.style.backgroundColor = background_colors[i % background_colors.length];
+      link.style.borderColor = background_colors[i % background_colors.length];
       link.style.color = "#ffffff";
 
       cardBody.appendChild(link);

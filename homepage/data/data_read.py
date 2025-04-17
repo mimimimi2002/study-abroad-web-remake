@@ -164,40 +164,11 @@ for i in range(judge_df.shape[0]-1):
     if option:
         option_data[query] = option
 
-
-judge_df = pd.read_excel("updated_judge.xlsx",sheet_name=4,header=None)
-style = ['Style1','Style2','Style3','Style4','Style5','Style6','Style7',]
-period = ['P1','P2','P3','P4']
-k = -1
-p = -1
-for i in range(judge_df.shape[0]-1):
-    programs_list = judge_df.iloc[i+1,3:].dropna()
-    p += 1
-    if i %4 == 0:
-        k+=1
-        p = 0
-
-    query = f"H5{style[(k)%7]}{period[p%4]}"
-    program_entries = []
-    option = ""
-
-    for j in range(len(programs_list)):
-        program_name = str(judge_df.iloc[i + 1, 3:].dropna()[j + 3])
-
-        program_data = get_program_data(program_name)
-        option = read_option(i, 3)
-
-        program_entries.append(program_data)
-
-    judge_data[query] = program_entries
-    if option:
-        option_data[query] = option
-
 judge_df = pd.read_excel("updated_judge.xlsx",sheet_name=5,header=None)
 
 for i in range(judge_df.shape[0] - 1):
     programs_list = judge_df.iloc[i+1, 2:].dropna()
-    query = f"H6P{i+1}"
+    query = f"H6E{i+1}"
 
     # Initialize a list to store each program's data
     programs = []
