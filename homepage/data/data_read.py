@@ -3,11 +3,15 @@ import json
 
 judge_df = pd.read_excel("updated_judge.xlsx",sheet_name=0,header=None)
 program_df = pd.read_excel("updated_judge.xlsx",sheet_name=6)
+xls = pd.ExcelFile("updated_judge.xlsx")
 
-def read_option(row, end):
+# Extract all sheet names
+sheet_names = xls.sheet_names
+
+def read_option(sheet_id, row, end):
     option_df = judge_df.iloc[row+1, 1:end]
-    connected = '/'.join(option_df.iloc[:end].astype(str).values.flatten())
-    return connected
+    connected = '/'.join(option_df.iloc[:end-1].astype(str).values.flatten())
+    return sheet_names[sheet_id] + "/" + connected
 
 def get_program_data(program_name):
     program_data = {
@@ -39,7 +43,7 @@ for i in range(judge_df.shape[0] - 1):
 
         # Create a dictionary for each program
         program_data = get_program_data(program_name)
-        option = read_option(i, 2)
+        option = read_option(0, i, 2)
 
         programs.append(program_data)
 
@@ -69,7 +73,7 @@ for i in range(judge_df.shape[0] - 1):
         program_name = str(judge_df.iloc[i + 1, 3:].dropna()[j + 3])
 
         program_data = get_program_data(program_name)
-        option = read_option(i, 3)
+        option = read_option(1, i, 3)
 
         program_entries.append(program_data)
 
@@ -97,7 +101,7 @@ for i in range(judge_df.shape[0] - 1):
         program_name = str(judge_df.iloc[i + 1, 3:].dropna()[j + 3])
 
         program_data = get_program_data(program_name)
-        option = read_option(i, 3)
+        option = read_option(2, i, 3)
 
         program_entries.append(program_data)
 
@@ -126,7 +130,7 @@ for i in range(judge_df.shape[0]-1):
         program_name = str(judge_df.iloc[i + 1, 3:].dropna()[j + 3])
 
         program_data = get_program_data(program_name)
-        option = read_option(i, 3)
+        option = read_option(3, i, 3)
 
         program_entries.append(program_data)
 
@@ -156,7 +160,7 @@ for i in range(judge_df.shape[0]-1):
         program_name = str(judge_df.iloc[i + 1, 3:].dropna()[j + 3])
 
         program_data = get_program_data(program_name)
-        option = read_option(i, 3)
+        option = read_option(4, i, 3)
 
         program_entries.append(program_data)
 
@@ -179,7 +183,7 @@ for i in range(judge_df.shape[0] - 1):
 
         # Create a dictionary for each program
         program_data = get_program_data(program_name)
-        option = read_option(i, 2)
+        option = read_option(5, i, 2)
 
         programs.append(program_data)
 

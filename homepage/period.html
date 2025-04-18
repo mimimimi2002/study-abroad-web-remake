@@ -10,9 +10,21 @@
     <script defer>
       document.addEventListener("DOMContentLoaded", () => {
         get_period_event_buttons("period");
+        let menu = get_period_event_menu();
+        console.log(menu)
+        let menuElement = document.getElementById("menu");
+
+        for (let i = 0; i < menu.length; i++) {
+          menuElement.textContent += " > " + menu[i];
+        }
       });
     </script>
     <body>
+        <div style="padding-left: 10px;">
+          <a href="homepage.html">ホーム</a>
+          <span id="menu"></span>
+        </div>
+        </div>
         <h1 style="text-align: center">
             <div>期間</div>
         </h1>
@@ -24,7 +36,6 @@
         </button>
         -->
         <div id = "create-button"></div>
-        <script src="js/bootstrap.bundle.min.js"></script>
-        <script src="js/button.js"></script>
     </body>
+    <script src="js/bootstrap.bundle.min.js"></script>
 </html>

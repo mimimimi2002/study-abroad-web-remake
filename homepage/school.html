@@ -7,143 +7,24 @@
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/school.css">
 </head>
-<body>  
-  <script src = "js/schooljudge.js"></script>
-  <script src="js/bootstrap.bundle.min.js"></script>
-  <script>
-    const ul = document.querySelector('.hscroll ul');
-    const dotsContainer = document.querySelector('.dots-container');
-    const school = document.getElementById("schoolinfo");
-    // Create dots for each image
-    for (let i = 0; i < school.children.length; i++) {
-        const dot = document.createElement('span');
-        dot.classList.add('dot');
-        dot.setAttribute('data-index', i);
-        dotsContainer.appendChild(dot);
-    }
-    // Event listener for dot clicks
-    dotsContainer.addEventListener('click', (e) => {
-        if (e.target.classList.contains('dot')) {
-            const index = parseInt(e.target.getAttribute('data-index'));
-            ul.scrollLeft = school.children[index].offsetLeft;
-        }
-    });
-    // Update active dot based on scroll position
-    ul.addEventListener('scroll', () => {
-        const scrollPosition = ul.scrollLeft;
-        for (let i = 0; i < school.children.length; i++) {
-            const child = school.children[i];
-            if (scrollPosition >= child.offsetLeft && scrollPosition < child.offsetLeft + child.offsetWidth) {
-                document.querySelectorAll('.dot').forEach(dot => dot.classList.remove('active'));
-                dotsContainer.children[i].classList.add('active');
-                break;
-            }
-        }
-    });
-    document.querySelectorAll('.left').forEach(elm => {
-        elm.onclick = function () {
-            let ul = elm.parentNode.querySelector('ul');
-            ul.scrollLeft -= ul.clientWidth;
-        };
-    });
-    document.querySelectorAll('.right').forEach(elm => {
-        elm.onclick = function () {
-            let ul = elm.parentNode.querySelector('ul');
-            ul.scrollLeft += ul.clientWidth;
-        };
-    });
+<body>
+    <div style="padding-left: 10px;">
+        <a href="homepage.html">ホーム</a>
+        <span id="menu"></span>
+      </div>
+</body>
+<script src = "js/schooljudge.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/button.js"></script>
+<script defer>
+    document.addEventListener("DOMContentLoaded", () => {
+      let menu = get_period_event_menu();
+      console.log(menu)
+      let menuElement = document.getElementById("menu");
 
-    // Update active dot based on scroll position
-    ul.addEventListener('scroll', () => {
-      const scrollPosition = ul.scrollLeft;
-      for (let i = 0; i < ul.children.length; i++) {
-          const child = ul.children[i];
-          if (scrollPosition >= child.offsetLeft && scrollPosition < child.offsetLeft + child.offsetWidth) {
-              document.querySelectorAll('.dot').forEach(dot => dot.classList.remove('active'));
-              dotsContainer.children[i].classList.add('active');
-              break;
-          }
+      for (let i = 0; i < menu.length; i++) {
+        menuElement.textContent += " > " + menu[i];
       }
     });
-    document.querySelectorAll('.left').forEach(elm => {
-        elm.onclick = function () {
-            let ul = elm.parentNode.querySelector('ul');
-            ul.scrollLeft -= ul.clientWidth;
-        };
-    });
-    document.querySelectorAll('.right').forEach(elm => {
-        elm.onclick = function () {
-            let ul = elm.parentNode.querySelector('ul');
-            ul.scrollLeft += ul.clientWidth;
-        };
-    });
-
-    function getCurrentPageNumber() {
-        const scrollPosition = ul.scrollLeft;
-        const itemWidth = ul.children[0].offsetWidth; // Assuming all items have the same width
-        const currentPage = Math.floor(scrollPosition / itemWidth) + 1; // Adding 1 to make it 1-indexed
-        return currentPage;
-    }
-    function navigateToPage(pageNumber) {
-        const itemWidth = ul.children[0].offsetWidth; // Assuming all items have the same width
-        const targetScrollPosition = (pageNumber - 1) * itemWidth; // Calculate target scroll position
-        // Set the scroll position directly without scrolling
-        ul.scrollLeft = targetScrollPosition;
-
-        // Update active dot based on the target page number
-        document.querySelectorAll('.dot').forEach(dot => dot.classList.remove('active'));
-        dotsContainer.children[pageNumber - 1].classList.add('active');
-    }
-
-
-
-
-    var positionX;                  /* スクロール位置のX座標 */
-    var positionY;                  /* スクロール位置のY座標 */
-    var pageNumber;                 /* スライドのページ番号 */
-    var STORAGE_KEY_X = "scrollX"; /* X座標のローカルストレージキー */
-    var STORAGE_KEY_Y = "scrollY"; /* Y座標のローカルストレージキー */
-    var STORAGE_KEY_PAGE = "pageNumber"; /* スライドのページ番号のローカルストレージキー */
-
-    /*
-    * checkOffset関数: 現在のスクロール量とページ番号をチェックしてストレージに保存
-    */
-    function checkOffset(){
-        positionX = window.pageXOffset;
-        positionY = window.pageYOffset;
-        pageNumber = getCurrentPageNumber(); // Assume you have a function to get the current page number
-        localStorage.setItem(STORAGE_KEY_X, 0);
-        localStorage.setItem(STORAGE_KEY_Y, 0);
-        localStorage.setItem(STORAGE_KEY_PAGE, pageNumber);
-    }
-
-    /*
-    * 起動時の処理
-    *
-    *		ローカルストレージをチェックして前回のスクロール位置とページ番号に戻す
-    */
-    
-    window.addEventListener("load", function(){
-        // ストレージチェック
-        positionX = localStorage.getItem(STORAGE_KEY_X);
-        positionY = localStorage.getItem(STORAGE_KEY_Y);
-        pageNumber = localStorage.getItem(STORAGE_KEY_PAGE);
-
-
-        // 前回の保存データがあればスクロールする
-        if(positionX !== null && positionY !== null && pageNumber !== null){
-            scrollTo(positionX, positionY);
-            // Assume you have a function to navigate to the saved page number
-            if(pageNumber != "1"){
-                navigateToPage("1");
-            }
-        }
-
-        // スクロール時のイベント設定
-        window.addEventListener("scroll", checkOffset, false);
-    });
-
-
-    </script>
-</body>
+  </script>
 </html>

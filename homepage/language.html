@@ -10,9 +10,19 @@
     <script defer>
       document.addEventListener("DOMContentLoaded", () => {
         get_option_buttons("language");
+        let menu = get_menu();
+        let menuElement = document.getElementById("menu");
+
+        for (let i = 0; i < menu.length; i++) {
+          menuElement.textContent += " > " + menu[i]
+        }
       });
     </script>
     <body>
+        <div style="padding-left: 10px;">
+          <a href="homepage.html">ホーム</a>
+          <span id="menu"></span>
+        </div>
         <h1 style="text-align: center">
             <div>言語レベル</div>
         </h1>
@@ -24,7 +34,6 @@
         </button>
         -->
         <div id = "create-button"></div>
-        <script src="js/bootstrap.bundle.min.js"></script>
-        <script src="js/button.js"></script>
     </body>
+    <script src="js/bootstrap.bundle.min.js"></script>
 </html>
