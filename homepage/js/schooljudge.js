@@ -1,24 +1,26 @@
 const urlParams = new URLSearchParams(window.location.search);
 const myParam = urlParams.get('param');
+console.log(myParam)
 
 if(myParam == null){
   alert("最初からやり直してください");
   window.location.href = "homepage.html";
 }
 
-let obj;
-async function loadData() {
+async function loadJudgeData() {
   const res = await fetch('./data/judge_data.json');
-  obj = await res.json();
-
-  console.log(obj); // ←普通の変数として使える
+  console.log(res)
+  const judgeData = await res.json();
+  return judgeData;
 }
 
-document.addEventListener("DOMContentLoaded", async () => {
+async function showData() {
   console.log("schooljudge.js DOM ready");
   // your logic here
 
-  await loadData();
+  const judgeData = await loadJudgeData();
+
+  console.log(judgeData)
 
   let maxHeight = 0;
 
@@ -35,7 +37,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   // if there is nothing in the option that is chosen (this will not happen)
-  if(obj[myParam].length == 0){
+  if(judgeData[myParam].length == 0){
     var div = document.createElement('div');
     div.classList.add('col');
 
@@ -100,7 +102,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.body.appendChild(hscrollElement);
 
     const schoolinfo = document.getElementById('schoolinfo');
-    for (let i = 0; i < obj[myParam].length; i++) {
+    for (let i = 0; i < judgeData[myParam].length; i++) {
         // 新しいli要素を作成
 
       var liElement = document.createElement("li");
@@ -112,13 +114,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       // a要素を作成してhref属性を設定
       var aElement = document.createElement("a");
-      if(obj[myParam][i].url != "nan"){
-        aElement.href = obj[myParam][i].url;
+      if(judgeData[myParam][i].url != "nan"){
+        aElement.href = judgeData[myParam][i].url;
       }
 
       // img要素を作成してsrc属性とスタイルを設定
       var imgElement = document.createElement("img");
-      imgElement.src = "./image/" + obj[myParam][i].ID + ".png";
+      imgElement.src = "./image/" + judgeData[myParam][i].ID + ".png";
 
       // img要素をa要素の子要素に追加
       aElement.appendChild(imgElement);
@@ -133,7 +135,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       textDiv.style.textAlign = "center";
       textDiv.style.backgroundColor = "rgba(255, 255, 255, 0.7)";
 
-      textDiv.innerHTML = obj[myParam][i].name;
+      textDiv.innerHTML = judgeData[myParam][i].name;
       */
 
       var nameElement = document.createElement("div");
@@ -143,7 +145,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       var nameContentElement = document.createElement("div");
       nameContentElement.classList.add("card-body")
       nameContentElement.classList.add("word-container");
-      nameContentElement.innerHTML = obj[myParam][i].name;
+      nameContentElement.innerHTML = judgeData[myParam][i].name;
       nameElement.appendChild(nameContentElement);
 
 
@@ -154,7 +156,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       var outlineContentElement = document.createElement("div");
       outlineContentElement.classList.add("card-body")
       outlineContentElement.classList.add("word-container");
-      outlineContentElement.innerHTML = obj[myParam][i].outline
+      outlineContentElement.innerHTML = judgeData[myParam][i].outline
       outlineElement.appendChild(outlineContentElement);
 
       var periodElement = document.createElement("div");
@@ -164,7 +166,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       var periodContentElement = document.createElement("div");
       periodContentElement.classList.add("card-body");
       periodContentElement.classList.add("word-container");
-      periodContentElement.innerHTML = obj[myParam][i].period
+      periodContentElement.innerHTML = judgeData[myParam][i].period
       periodElement.appendChild(periodContentElement);
 
 
@@ -175,7 +177,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       var scheduleContentElement = document.createElement("div");
       scheduleContentElement.classList.add("card-body")
       scheduleContentElement.classList.add("word-container");
-      scheduleContentElement.innerHTML = obj[myParam][i].schedule
+      scheduleContentElement.innerHTML = judgeData[myParam][i].schedule
       scheduleElement.appendChild(scheduleContentElement);
 
 
@@ -186,7 +188,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       var costContentElement = document.createElement("div");
       costContentElement.classList.add("card-body")
       costContentElement.classList.add("word-container");
-      costContentElement.innerHTML = obj[myParam][i].cost
+      costContentElement.innerHTML = judgeData[myParam][i].cost
       costElement.appendChild(costContentElement);
 
       var gradeElement = document.createElement("div");
@@ -196,7 +198,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       var gradeContentElement = document.createElement("div");
       gradeContentElement.classList.add("card-body")
       gradeContentElement.classList.add("word-container");
-      gradeContentElement.innerHTML = obj[myParam][i].application_grade
+      gradeContentElement.innerHTML = judgeData[myParam][i].application_grade
       gradeElement.appendChild(gradeContentElement);
 
       var detailElement = document.createElement("div");
@@ -205,8 +207,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       detailElement.style.height = 100 + "px"
       var detailContentElement = document.createElement("div");
       var link = document.createElement('a');
-      if(obj[myParam][i].url != "nan"){
-        link.href = obj[myParam][i].url;
+      if(judgeData[myParam][i].url != "nan"){
+        link.href = judgeData[myParam][i].url;
         link.classList.add('w-100', 'text-center', 'd-flex', 'flex-column', 'justify-content-center', 'btn', 'btn-lg', 'btn-primary', 'h-100');
         link.setAttribute('type', 'button');
         link.setAttribute('style', 'background-color: #e16112; border-color: #e16112; color: #ffffff;');
@@ -216,7 +218,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         link.classList.add('w-100', 'text-center', 'd-flex', 'flex-column', 'justify-content-center', 'btn', 'btn-lg', 'btn-primary', 'h-100');
         link.setAttribute('type', 'button');
         link.setAttribute('style', 'background-color: #e16112; border-color: #e16112; color: #ffffff;');
-        link.textContent = obj[myParam][i].contact;
+        link.textContent = judgeData[myParam][i].contact;
       }
       detailContentElement.appendChild(link);
       detailElement.appendChild(detailContentElement);
@@ -238,7 +240,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       // schoolinfo要素にli要素を追加
       document.getElementById("schoolinfo").appendChild(liElement);
 
-      let height = getTextHeight(outlineContentElement, obj[myParam][i].outline.length);
+      let height = getTextHeight(outlineContentElement, judgeData[myParam][i].outline.length);
 
       if (maxHeight < height) {
         maxHeight = height;
@@ -387,4 +389,4 @@ document.addEventListener("DOMContentLoaded", async () => {
       window.addEventListener("scroll", checkOffset, false);
   });
 
-});
+};

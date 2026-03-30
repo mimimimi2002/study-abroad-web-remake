@@ -7,13 +7,15 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
     </head>
     <script src="js/button.js"></script>
-    <script defer>
-      document.addEventListener("DOMContentLoaded", () => {
+    <script>
+      document.addEventListener("DOMContentLoaded", async () => {
+        await buttonInit();
         get_period_event_buttons("period");
-        let menu = get_period_event_menu();
-        console.log(menu)
-        let menuElement = document.getElementById("menu");
 
+        let menu = get_period_event_menu();
+        console.log(menu);
+
+        let menuElement = document.getElementById("menu");
         for (let i = 0; i < menu.length; i++) {
           menuElement.textContent += " > " + menu[i];
         }
@@ -28,13 +30,6 @@
         <h1 style="text-align: center">
             <div>期間</div>
         </h1>
-        <!--
-        <button>
-          <div id = "back-button"></div>
-        <button>
-          <a href="homepage.html">最初のページに戻る</a>
-        </button>
-        -->
         <div id = "create-button"></div>
     </body>
     <script src="js/bootstrap.bundle.min.js"></script>

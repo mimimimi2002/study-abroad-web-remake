@@ -8,7 +8,8 @@
     </head>
     <script src="js/button.js"></script>
     <script defer>
-      document.addEventListener("DOMContentLoaded", () => {
+      document.addEventListener("DOMContentLoaded", async () => {
+        await buttonInit();
         get_option_buttons("language");
         let menu = get_menu();
         let menuElement = document.getElementById("menu");
