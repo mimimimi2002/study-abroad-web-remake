@@ -1,12 +1,10 @@
-async function loadData() {
+async function loadOptionData() {
   const res = await fetch('./data/option_data.json');
   optionData = await res.json();
-  console.log(Object.keys(optionData))
   return optionData;
 }
-
 async function menuInit() {
-    const optionData = await loadData();
+    const optionData = await loadOptionData();
     const urlParams = new URLSearchParams(window.location.search);
     const myParam = urlParams.get('param');
     window.get_menu = function () {
