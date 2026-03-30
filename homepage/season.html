@@ -7,8 +7,10 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
     </head>
     <script src="js/button.js"></script>
+    <script src="js/menu.js"></script>
     <script defer>
         document.addEventListener("DOMContentLoaded", async () => {
+          await menuInit();
           await buttonInit();
           get_option_buttons("season");
           let menu = get_menu();

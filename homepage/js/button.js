@@ -1,14 +1,17 @@
-let optionData;
 async function loadData() {
   const res = await fetch('./data/option_data.json');
   optionData = await res.json();
+  console.log(Object.keys(optionData))
+  return optionData;
 }
 
 async function buttonInit() {
+    const optionData = await loadData();
+    console.log(optionData)
     const urlParams = new URLSearchParams(window.location.search);
     const myParam = urlParams.get('param');
     const background_colors = ["#0000FF","#e16112", "#2e9f259d", "#f2d65cde", "1b1b1aa0"]
-    const period_param = ["P1", "P2", "P3", "P4"]
+    const period_param = ["P1", "P2", "P3", "P4", "P5"]
     const language_param = ["L1", "L2", "L3", "L4", "L5"]
 
     const purpose_param = Array.from({ length: 16 }, (_, i) => `PP${i + 1}`)
@@ -26,39 +29,6 @@ async function buttonInit() {
       alert("最初からやり直してください");
       window.location.href = "homepage.html";
     }
-
-    await loadData();
-
-    window.get_menu = function () {
-      let option;
-      console.log(myParam)
-      if (optionData[myParam]) {
-        option = Object.entries(optionData)
-        .find(([key]) => key.includes(myParam))?.[1]
-        .split("/")
-      } else {
-        option = Object.entries(optionData)
-        .find(([key]) => key.includes(myParam))?.[1]
-        .split("/")
-        .slice(0, -2)
-      }
-      return option
-    };
-
-    window.get_period_event_menu = function () {
-      let option;
-      if (optionData[myParam]) {
-        option = Object.entries(optionData)
-        .find(([key]) => key.includes(myParam))?.[1]
-        .split("/")
-      } else {
-        option = Object.entries(optionData)
-        .find(([key]) => key.includes(myParam))?.[1]
-        .split("/")
-        .slice(0, -1)
-      }
-      return option
-    };
 
     window.get_period_event_buttons = function (option_name) {
       var createButton = document.getElementById("create-button");

@@ -7,8 +7,11 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
     </head>
     <script src="js/button.js"></script>
+    <script src="js/menu.js"></script>
     <script defer>
-      document.addEventListener("DOMContentLoaded", () => {
+      document.addEventListener("DOMContentLoaded", async () => {
+        await menuInit();
+        await buttonInit();
         get_period_event_buttons("event");
         let menu = get_period_event_menu();
         console.log(menu)
