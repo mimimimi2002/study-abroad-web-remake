@@ -120,7 +120,7 @@ async function showData() {
 
       // img要素を作成してsrc属性とスタイルを設定
       var imgElement = document.createElement("img");
-      imgElement.src = "./image/" + judgeData[myParam][i].ID + ".png";
+      imgElement.src = "./image/" + judgeData[myParam][i]["image_name"] + ".png";
 
       // img要素をa要素の子要素に追加
       aElement.appendChild(imgElement);
@@ -145,7 +145,7 @@ async function showData() {
       var nameContentElement = document.createElement("div");
       nameContentElement.classList.add("card-body")
       nameContentElement.classList.add("word-container");
-      nameContentElement.innerHTML = judgeData[myParam][i].name;
+      nameContentElement.innerHTML = judgeData[myParam][i]["program_name"];
       nameElement.appendChild(nameContentElement);
 
 
@@ -156,7 +156,7 @@ async function showData() {
       var outlineContentElement = document.createElement("div");
       outlineContentElement.classList.add("card-body")
       outlineContentElement.classList.add("word-container");
-      outlineContentElement.innerHTML = judgeData[myParam][i].outline
+      outlineContentElement.innerHTML = judgeData[myParam][i]["outline"]
       outlineElement.appendChild(outlineContentElement);
 
       var periodElement = document.createElement("div");
@@ -166,7 +166,7 @@ async function showData() {
       var periodContentElement = document.createElement("div");
       periodContentElement.classList.add("card-body");
       periodContentElement.classList.add("word-container");
-      periodContentElement.innerHTML = judgeData[myParam][i].period
+      periodContentElement.innerHTML = judgeData[myParam][i]["period"]
       periodElement.appendChild(periodContentElement);
 
 
@@ -177,7 +177,7 @@ async function showData() {
       var scheduleContentElement = document.createElement("div");
       scheduleContentElement.classList.add("card-body")
       scheduleContentElement.classList.add("word-container");
-      scheduleContentElement.innerHTML = judgeData[myParam][i].schedule
+      scheduleContentElement.innerHTML = judgeData[myParam][i]["schedule"]
       scheduleElement.appendChild(scheduleContentElement);
 
 
@@ -188,7 +188,7 @@ async function showData() {
       var costContentElement = document.createElement("div");
       costContentElement.classList.add("card-body")
       costContentElement.classList.add("word-container");
-      costContentElement.innerHTML = judgeData[myParam][i].cost
+      costContentElement.innerHTML = judgeData[myParam][i]["cost"]
       costElement.appendChild(costContentElement);
 
       var gradeElement = document.createElement("div");
@@ -198,7 +198,7 @@ async function showData() {
       var gradeContentElement = document.createElement("div");
       gradeContentElement.classList.add("card-body")
       gradeContentElement.classList.add("word-container");
-      gradeContentElement.innerHTML = judgeData[myParam][i].application_grade
+      gradeContentElement.innerHTML = judgeData[myParam][i]["application_grade"]
       gradeElement.appendChild(gradeContentElement);
 
       var detailElement = document.createElement("div");
