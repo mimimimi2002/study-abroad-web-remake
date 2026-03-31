@@ -1,11 +1,11 @@
 async function loadOptionData() {
-  const res = await fetch('./data/option_data.json');
+  const res = await fetch('./data/judge_data/option_data.json');
   optionData = await res.json();
   return optionData;
 }
 
 async function loadOptionCount() {
-  const res = await fetch('./data/option_count.json');
+  const res = await fetch('./data/judge_data/option_count.json');
   optionCount = await res.json();
   return optionCount;
 }

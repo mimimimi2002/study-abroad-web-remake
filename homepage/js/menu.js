@@ -1,5 +1,5 @@
 async function loadOptionData() {
-  const res = await fetch('./data/option_data.json');
+  const res = await fetch('./data/judge_data/option_data.json');
   optionData = await res.json();
   return optionData;
 }

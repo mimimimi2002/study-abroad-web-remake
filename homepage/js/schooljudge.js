@@ -8,7 +8,7 @@ if(myParam == null){
 }
 
 async function loadJudgeData() {
-  const res = await fetch('./data/judge_data.json');
+  const res = await fetch('./data/judge_data/judge_data.json');
   console.log(res)
   const judgeData = await res.json();
   return judgeData;
@@ -120,7 +120,7 @@ async function showData() {
 
       // img要素を作成してsrc属性とスタイルを設定
       var imgElement = document.createElement("img");
-      imgElement.src = "./image/" + judgeData[myParam][i]["image_name"] + ".png";
+      imgElement.src = "./data/image/" + judgeData[myParam][i]["image_name"] + ".png";
 
       // img要素をa要素の子要素に追加
       aElement.appendChild(imgElement);
@@ -218,7 +218,7 @@ async function showData() {
         link.classList.add('w-100', 'text-center', 'd-flex', 'flex-column', 'justify-content-center', 'btn', 'btn-lg', 'btn-primary', 'h-100');
         link.setAttribute('type', 'button');
         link.setAttribute('style', 'background-color: #e16112; border-color: #e16112; color: #ffffff;');
-        link.textContent = judgeData[myParam][i].contact;
+        link.textContent = judgeData[myParam][i]["contact"];
       }
       detailContentElement.appendChild(link);
       detailElement.appendChild(detailContentElement);
@@ -240,7 +240,7 @@ async function showData() {
       // schoolinfo要素にli要素を追加
       document.getElementById("schoolinfo").appendChild(liElement);
 
-      let height = getTextHeight(outlineContentElement, judgeData[myParam][i].outline.length);
+      let height = getTextHeight(outlineContentElement, judgeData[myParam][i]["outline"].length);
 
       if (maxHeight < height) {
         maxHeight = height;
