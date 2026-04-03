@@ -13,7 +13,6 @@ async function loadOptionCount() {
 async function buttonInit() {
     const optionData = await loadOptionData();
     const optionCounter = await loadOptionCount(optionData)
-    console.log(optionCounter)
     const urlParams = new URLSearchParams(window.location.search);
     const myParam = urlParams.get('param');
     const background_colors = ["#0000FF","#e16112", "#2e9f259d", "#f2d65cde", "1b1b1aa0"]
@@ -26,8 +25,6 @@ async function buttonInit() {
     const style_param = Array.from({ length: optionCounter["Style"] }, (_, i) => `Style${i + 1}`)
 
     const event_param = Array.from({ length: optionCounter["E"] }, (_, i) => `E${i + 1}`)
-
-    console.log("button.js loaded");
 
     if(myParam == null){
       alert("最初からやり直してください");
@@ -49,9 +46,6 @@ async function buttonInit() {
 
       for (let i = 0; i < option_param.length; i++) {
         new_param = myParam + option_param[i];
-        console.log("exsit?")
-        console.log(new_param)
-        console.log(optionData[new_param])
         if(optionData[new_param]){
           var div = document.createElement("div");
           div.className = "col-4";
@@ -104,8 +98,6 @@ async function buttonInit() {
       } else if (option_name === "style") {
         option_param = style_param
       }
-      console.log("option_param")
-      console.log(option_param)
       for (let i = 0; i < option_param.length; i++) {
         new_param = myParam + option_param[i];
         if (Object.keys(optionData).some(key => key.includes(new_param))) {
