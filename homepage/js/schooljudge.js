@@ -282,7 +282,8 @@ async function showData() {
       const scrollPosition = ul.scrollLeft;
       for (let i = 0; i < school.children.length; i++) {
           const child = school.children[i];
-          if (scrollPosition >= child.offsetLeft && scrollPosition < child.offsetLeft + child.offsetWidth) {
+          const scrollCenter = scrollPosition + child.offsetWidth / 2
+          if (scrollCenter  >= child.offsetLeft && scrollCenter < child.offsetLeft + child.offsetWidth) {
               document.querySelectorAll('.dot').forEach(dot => dot.classList.remove('active'));
               dotsContainer.children[i].classList.add('active');
               break;
@@ -302,18 +303,6 @@ async function showData() {
       };
   });
 
-  // Update active dot based on scroll position
-  ul.addEventListener('scroll', () => {
-      const scrollPosition = ul.scrollLeft;
-      for (let i = 0; i < ul.children.length; i++) {
-          const child = ul.children[i];
-          if (scrollPosition >= child.offsetLeft && scrollPosition < child.offsetLeft + child.offsetWidth) {
-              document.querySelectorAll('.dot').forEach(dot => dot.classList.remove('active'));
-              dotsContainer.children[i].classList.add('active');
-              break;
-          }
-      }
-  });
   document.querySelectorAll('.left').forEach(elm => {
       elm.onclick = function () {
           let ul = elm.parentNode.querySelector('ul');
